@@ -157,7 +157,7 @@
 
     .rsvp-input {
       margin-top: 0.8em;
-      width: 100%;
+      width: 110%;
       max-width: 300px;
       padding: 8px;
       font-size: 0.95rem;
@@ -190,6 +190,34 @@
     .rsvp-btn:hover {
       background: linear-gradient(135deg, #b58d3f, #a27a2d);
     }
+    .map-btn {
+  display: inline-block;
+  margin: 16px auto 10px;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #caa755, #b58d3f);
+  color: white;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-family: "Playfair Display", serif;
+  transition: background .3s ease, transform .2s ease;
+  text-align: center;
+  line-height: 1.4;
+  max-width: 90%;
+}
+.map-btn:hover {
+  background: linear-gradient(135deg, #b58d3f, #a27a2d);
+  transform: scale(1.02);
+}
+.map-note {
+  display: block;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #fff9e8;
+  margin-top: 2px;
+  opacity: 0.9;
+}
+
   </style>
 </head>
 <body>
@@ -200,7 +228,6 @@
     
     <div class="letter-img offset" id="letter">
       <img src="./assets/carta-ayg.png" alt="Invitación Alejandra y Gustavo">
-
       <div class="rsvp">
         <h3 class="rsvp-title">Confirmá tu asistencia</h3>
         <p class="rsvp-sub">Tu presencia hará nuestro día aún más especial 💛</p>
@@ -234,7 +261,11 @@
 
           <button type="submit" class="rsvp-btn">Confirmar por WhatsApp</button>
         </form>
-      </div>
+        <a href="https://maps.google.com/?q=El+Rosedal+de+Palermo,+Patio+Andaluz,+Buenos+Aires" target="_blank" class="map-btn">
+          📍 Ver ubicación en Google Maps
+          <span class="map-note">(no olvides confirmar tu asistencia luego de ver la ubicación)</span>
+        </a>
+        </div>
     </div>
 
     <div class="hint">Tocá el sello para abrir</div>
