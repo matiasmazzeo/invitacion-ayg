@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Invitación Alejandra & Gustavo</title>
+  <meta name="description" content="Invitación digital – Rosedal de Palermo">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Italianno&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --gold: #b4903c;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+      font-family: "Playfair Display", "Segoe UI Emoji", "Noto Color Emoji", "Apple Color Emoji", serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .stage {
+      position: relative;
+      width: min(700px, 94vw);
+      aspect-ratio: 3/2.1;
+      perspective: 1600px;
+    }
+
+    .envelope {
+      position: absolute;
+      inset: 0;
+      background: url("./assets/envelope.png") center/contain no-repeat;
+    }
+
+    .flap {
+      position: absolute;
+      left: 0; right: 0;
+      top: 8%;
+      height: 45%;
+      transform-origin: 50% 0%;
+      transform: rotateX(0deg);
+      transition: transform 1s cubic-bezier(.2,.7,.1,1);
+    }
+
+    .seal {
+      position: absolute;
+      width: 16%;
+      max-width: 120px;
+      left: 50%; top: 54%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,.25));
+      transition: transform .5s ease, opacity .6s ease;
+      cursor: pointer;
+    }
+
+    .letter-img {
+      position: absolute;
+      left: 6%; right: 6%;
+      top: 30%;
+      background: #fdfdfd;
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.22);
+      transform: translateY(50%) scale(.98);
+      opacity: 0;
+      transition: transform 1s cubic-bezier(.2,.7,.1,1), opacity .8s ease;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-bottom: 10px;
+    }
+
+    .letter-img.offset { top: 95%; }
+
+    .letter-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .hint {
+      position: absolute;
+      bottom: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      opacity: .7;
+      transition: opacity .4s ease;
+    }
+
+    .hint.hidden { opacity: 0; pointer-events: none; }
+
+    .open .flap { transform: rotateX(-170deg); }
+    .open .seal { transform: translate(-50%, -50%) scale(.05); opacity: 0; }
+    .open .letter-img { transform: translateY(-45%) scale(1); opacity: 1; }
+
+    @media(max-width:460px) {
+      .open .letter-img { transform: translateY(-40%) scale(1); }
+    }
+
+    .rsvp {
+      text-align: center;
+      padding: 15px 10px 25px;
+      color: #3a2e1e;
+      background: #fffbe8;
+      border-top: 1px solid #e3d2a4;
+      width: 100%;
+    }
+
+    .rsvp-title {
+      font-family: "Italianno", cursive;
+      font-size: 2rem;
+      margin-bottom: 0.2em;
+      color: var(--gold);
+    }
+
+    .rsvp-sub {
+      font-size: 0.95rem;
+      font-style: italic;
+      margin-bottom: 1em;
+      color: #444;
+    }
+
+    .rsvp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6em;
+      align-items: center;
+    }
+
+    .rsvp-option {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      color: #222;
+      transition: color .3s;
+    }
+
+    .rsvp-option:hover span { color: var(--gold); }
+
+    .rsvp-option input {
+      accent-color: var(--gold);
+      width: 16px;
+      height: 16px;
+    }
+
+    .rsvp-input {
+      margin-top: 0.8em;
+      width: 100%;
+      max-width: 300px;
+      padding: 8px;
+      font-size: 0.95rem;
+      border: 1px solid #d8c68a;
+      border-radius: 6px;
+      text-align: center;
+      font-family: "Playfair Display", serif;
+    }
+
+    .companions {
+      display: none;
+      flex-direction: column;
+      gap: 0.5em;
+      margin-top: 0.5em;
+    }
+
+    .rsvp-btn {
+      margin-top: 1.2em;
+      padding: 8px 20px;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #caa755, #b58d3f);
+      color: white;
+      font-family: "Playfair Display", serif;
+      cursor: pointer;
+      transition: background .3s ease;
+    }
+
+    .rsvp-btn:hover {
+      background: linear-gradient(135deg, #b58d3f, #a27a2d);
+    }
+  </style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="envelope"></div>
+    <div class="flap" id="flap"></div>
+    <img class="seal" id="seal" src="./assets/wax-seal.png" alt="Sello AyG">
+    
+    <div class="letter-img offset" id="letter">
+      <img src="./assets/carta-ayg.png" alt="Invitación Alejandra y Gustavo">
+
+      <div class="rsvp">
+        <h3 class="rsvp-title">Confirmá tu asistencia</h3>
+        <p class="rsvp-sub">Tu presencia hará nuestro día aún más especial 💛</p>
+
+        <form class="rsvp-form" onsubmit="enviarWhatsapp(event)">
+          <input type="text" id="nombre" class="rsvp-input" placeholder="Nombre y Apellido" required>
+
+          <label class="rsvp-option">
+            <input type="radio" name="asistencia" value="No podré asistir" required>
+            <span>No podré asistir 😔</span>
+          </label>
+
+          <label class="rsvp-option">
+            <input type="radio" name="asistencia" value="Solo asistiré al civil">
+            <span>Asistiré solo al civil 🌿</span>
+          </label>
+
+          <label class="rsvp-option">
+            <input type="radio" name="asistencia" value="Solo asistiré a la reunión posterior">
+            <span>Asistiré solo a la reunión posterior 🥂</span>
+          </label>
+
+          <label class="rsvp-option">
+            <input type="radio" name="asistencia" value="Asistiré a ambos">
+            <span>Asistiré a ambos 💐</span>
+          </label>
+
+          <input type="number" id="cantidad" class="rsvp-input" min="1" max="10" placeholder="¿Cuántos serán en total?" onchange="generarCamposAcompanantes()">
+
+          <div id="companions" class="companions"></div>
+
+          <button type="submit" class="rsvp-btn">Confirmar por WhatsApp</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="hint">Tocá el sello para abrir</div>
+  </div>
+
+  <script>
+    const stage = document.getElementById('stage');
+    const seal = document.getElementById('seal');
+    const flap = document.getElementById('flap');
+    const letter = document.getElementById('letter');
+    const hint = document.querySelector('.hint');
+
+    function openInvite() {
+      if (stage.classList.contains('open')) return;
+      stage.classList.add('open');
+      hint.classList.add('hidden');
+    }
+
+    ['click','touchstart','keydown'].forEach(evt=>{
+      (evt==='keydown'?window:seal).addEventListener(evt,e=>{
+        if(evt==='keydown'&&(e.key!=='Enter'&&e.key!==' '))return;
+        openInvite();
+      },{passive:true});
+    });
+    flap.addEventListener('click',openInvite,{passive:true});
+    seal.tabIndex=0;seal.setAttribute('role','button');
+    seal.setAttribute('aria-label','Abrir invitación');
+
+    // Generar campos para acompañantes
+    function generarCamposAcompanantes() {
+      const contenedor = document.getElementById('companions');
+      contenedor.innerHTML = '';
+      const cantidad = parseInt(document.getElementById('cantidad').value || 1);
+      if (cantidad > 1) {
+        contenedor.style.display = 'flex';
+        for (let i = 2; i <= cantidad; i++) {
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.className = 'rsvp-input';
+          input.placeholder = `Nombre del acompañante ${i - 1}`;
+          input.id = `acompanante${i}`;
+          contenedor.appendChild(input);
+        }
+      } else {
+        contenedor.style.display = 'none';
+      }
+    }
+
+    // Enviar WhatsApp sin emojis
+    function eliminarEmojis(texto) {
+      // elimina caracteres fuera del rango ASCII, manteniendo letras, números, espacios y signos comunes
+      return texto.replace(/[^\p{L}\p{N}\p{P}\p{Z}]/gu, '');
+    }
+
+    function enviarWhatsapp(e){
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value.trim();
+      const checked = document.querySelector('input[name="asistencia"]:checked');
+      const cantidad = parseInt(document.getElementById('cantidad').value || 1);
+      if (!checked || !nombre) return;
+
+      let acomp = '';
+      for (let i = 2; i <= cantidad; i++) {
+        const campo = document.getElementById(`acompanante${i}`);
+        if (campo && campo.value.trim()) {
+          acomp += `, ${campo.value.trim()}`;
+        }
+      }
+
+      // Tomamos texto visible y eliminamos emojis antes de enviar
+      let asistencia = checked.nextElementSibling.textContent.trim();
+      asistencia = eliminarEmojis(asistencia);
+
+      const mensaje = `Hola! Soy ${nombre}${acomp ? ' (con ' + acomp + ')' : ''}. ${asistencia}!`;
+      const numero = "5491139082302"; 
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>

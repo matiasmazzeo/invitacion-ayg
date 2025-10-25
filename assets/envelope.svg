@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="envShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4f1ee"/>
+      <stop offset="100%" stop-color="#e8e3df"/>
+    </linearGradient>
+    <linearGradient id="envFold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#efeae6"/>
+      <stop offset="100%" stop-color="#ded7d2"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Envelope body -->
+  <rect x="150" y="180" rx="6" ry="6" width="900" height="520" fill="url(#envShade)" filter="url(#shadow)" />
+
+  <!-- Left flap -->
+  <polygon points="150,180 600,480 150,700" fill="url(#envFold)" />
+  <!-- Right flap -->
+  <polygon points="1050,180 600,480 1050,700" fill="url(#envFold)" />
+  <!-- Bottom flap -->
+  <polygon points="150,700 1050,700 600,480" fill="#f1ece8" />
+  <!-- Top flap (closed look) -->
+  <polygon id="topFlap" points="150,180 1050,180 600,480" fill="#f6f2ef" />
+
+  <!-- Guide for seal placement (transparent) -->
+  <circle cx="600" cy="445" r="55" fill="none" stroke="none" id="sealGuide"/>
+</svg>
