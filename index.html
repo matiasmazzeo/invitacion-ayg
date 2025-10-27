@@ -259,9 +259,9 @@
             <span>Asistiré a ambos 💐</span>
           </label>
 
-          <input type="number" id="cantidad" class="rsvp-input" min="1" max="10" placeholder="¿Cuántos serán en total?" onchange="generarCamposAcompanantes()">
+          <input type="number" id="cantidad" class="rsvp-input" min="1" max="10" placeholder="¿Cuántos serán en total?" onchange="generarCamposAcompanantes()" required>
 
-          <div id="companions" class="companions"></div>
+          <div id="companions" class="companions" ></div>
 
           <button type="submit" class="rsvp-btn">Confirmar por WhatsApp</button>
         </form>
@@ -304,13 +304,14 @@
       contenedor.innerHTML = '';
       const cantidad = parseInt(document.getElementById('cantidad').value || 1);
       if (cantidad > 1) {
-        contenedor.style.display = 'flex';
+        contenedor.style.ñdisplay = 'flex';
         for (let i = 2; i <= cantidad; i++) {
           const input = document.createElement('input');
           input.type = 'text';
           input.className = 'rsvp-input';
           input.placeholder = `Nombre del acompañante ${i - 1}`;
           input.id = `acompanante${i}`;
+          input.required = true;
           contenedor.appendChild(input);
         }
       } else {
